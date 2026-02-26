@@ -1,0 +1,1 @@
+This is our SSS gummies delivery system! We deliver outside of OB Montessori now, but our service is only limited to Las Pinas schools, such as Perpetual, Seton, Montessori de Manila, and Southville. Order now to taste our sweet, superb, and sexy gummies made by Sabitsana, Santos, and Sy.
