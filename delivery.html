@@ -135,38 +135,25 @@ Calculate Distance
 
 <script>
 const baseFare = 50;
-const perKMrate = 15;
+const perKM = 15;
 const baseKM = 2;
 
-function calculateFare() {
+document.getElementById("calculateBtn").onclick = function () {
 
-    let pickup = parseInt(document.getElementById("pickup").value);
-    let dropoff = parseInt(document.getElementById("dropoff").value);
-    let discount = document.getElementById("discountType").value;
+    let p = +document.getElementById("pickup").value;
+    let d = +document.getElementById("dropoff").value;
+    let disc = document.getElementById("discountType").value;
 
-    let distance = Math.abs(dropoff - pickup);
+    let dist = Math.abs(d - p);
 
-    if (distance === 0) {
-        document.getElementById("fareResult").innerHTML =
-        "Please Select Different Locations";
-        return;
-    }
+    let fare = baseFare + Math.max(0, dist - baseKM) * perKM;
 
-    let fare;
-
-    if (distance <= baseKM) {
-        fare = baseFare;
-    } else {
-        fare = baseFare + ((distance - baseKM) * perKMrate);
-    }
-
-    if (discount === "discounted") {
-        fare = fare * 0.80;
-    }
+    fare *= 1 - 0.20 * (disc === "discounted");
 
     document.getElementById("fareResult").innerHTML =
-        "Distance: " + distance + " km <br>Total Fare: ₱" + fare.toFixed(2);
-}
+        "Distance: " + dist +
+        " km <br>Total Fare: ₱" + fare.toFixed(2);
+};
 </script>
 
 
