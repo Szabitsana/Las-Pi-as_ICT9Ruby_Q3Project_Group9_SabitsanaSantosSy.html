@@ -154,34 +154,47 @@ const baseFare = 50;
 const perKMrate = 15;
 const baseKM = 2;
 
+const stationKM = [
+    0.0,  
+    1.2,   
+    2.2,   
+    4.1,   
+    5.6,   
+    7.9,   
+    8.7,   
+    9.5,   
+    10.3,  
+    11.1,  
+    12.0, 
+    16.9   
+];
+
 function calculateFare() {
 
-    let pickup = parseInt(document.getElementById("pickup").value);
-    let dropoff = parseInt(document.getElementById("dropoff").value);
+    let pickup = +document.getElementById("pickup").value;
+    let dropoff = +document.getElementById("dropoff").value;
     let discount = document.getElementById("discountType").value;
 
-    let distance = Math.abs(dropoff - pickup);
+    let distance = Math.abs(stationKM[dropoff] - stationKM[pickup]);
 
-    if (distance === 0) {
-        document.getElementById("fareResult").innerHTML =
-        "Please Select Different Locations";
-        return;
-    }
+    let extraKM = Math.max(0, distance - baseKM);
 
-    let fare;
+    let fare = baseFare + (extraKM * perKMrate);
 
-    if (distance <= baseKM) {
-        fare = baseFare;
-    } else {
-        fare = baseFare + ((distance - baseKM) * perKMrate);
-    }
 
-    if (discount === "discounted") {
-        fare = fare * 0.80;
-    }
+    let discountMultiplier = 1 - (discount === "discounted") * 0.20;
 
-    document.getElementById("fareResult").innerHTML =
-        "Distance: " + distance + " km <br>Total Fare: ₱" + fare.toFixed(2);
+    fare = fare * discountMultiplier;
+    
+    let message =
+        (distance === 0) * "Please Select Different Locations" +
+        (distance !== 0) *
+        ("Distance: " + distance.toFixed(2) +
+        " km <br>Total Fare: ₱" + fare.toFixed(2));
+
+    document.getElementById("fareResult").innerHTML = message;
+}
+</script>
 }
 </script>
 
