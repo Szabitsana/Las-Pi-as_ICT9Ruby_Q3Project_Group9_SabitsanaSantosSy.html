@@ -44,37 +44,28 @@ footer {
 <body>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    
 <div class="container-fluid">
-
 <a class="navbar-brand" href="#">
 <img src="SSS LOGO.jpg" class="rounded-circle" alt="logo" height="50">
 </a>
-
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-    
 <span class="navbar-toggler-icon"></span>
 </button>
-
 <div class="collapse navbar-collapse" id="mynavbar">
-
 <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link text-white" href="index.html">HOME</a></li>
 <li class="nav-item"><a class="nav-link text-white" href="delivery.html">DELIVERY</a></li>
 <li class="nav-item"><a class="nav-link text-white" href="schedule.html">SCHEDULE</a></li>
 <li class="nav-item"><a class="nav-link text-white" href="help.html">HELP</a></li>
 </ul>
-
 <form class="d-flex">
 <input class="form-control me-2" type="text" placeholder="SEARCH">
 <a href="reg.html" class="btn btn-primary">CREATE ACCOUNT</a>
 </form>
-
 </div>
 </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <main>
 <div class="container mt-5">
 <div class="form-wrapper text-center">
@@ -86,7 +77,6 @@ footer {
 
 <hr>
 
-<!-- MRT FARE CALCULATOR -->
 <h4>SSS MRT LINE 3 CALCULATOR</h4>
 
 <p>From:</p>
@@ -123,6 +113,12 @@ footer {
 <option value="16.7">Taft Avenue</option>
 </select>
 
+<p>Passenger Type:</p>
+<select id="type" class="form-select mb-3">
+  <option value="1">Regular</option>
+  <option value="0.8">Senior / PWD (20% Off)</option>
+</select>
+
 <button onclick="calculate()" class="btn btn-success">Calculate Fare</button>
 
 <p id="result" class="mt-3 fw-bold"></p>
@@ -131,23 +127,21 @@ footer {
 </div>
 </main>
 
-
 <footer class="bg-dark text-white text-center py-3">
 <div class="container">
 <small>© 2026 SSS GUMMIES | 9 RUBY 25-26</small>
 </div>
 </footer>
 
-
 <script>
 function calculate() {
-
+   
     var from = document.getElementById("from").value;
     var to = document.getElementById("to").value;
+    var type = document.getElementById("type").value; 
 
-    var distance = Math.abs(from - to);
-
-    var fare = 13 + (distance * 1.5);
+    var distance = Math.abs(to - from);             
+    var fare = (13 + (distance * 1.5)) * type;    
 
     document.getElementById("result").innerHTML =
         "Distance: " + distance.toFixed(2) + " km <br>" +
