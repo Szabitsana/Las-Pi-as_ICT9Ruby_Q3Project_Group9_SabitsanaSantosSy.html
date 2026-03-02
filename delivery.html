@@ -28,11 +28,9 @@ html, body {
 }
 
 body {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
-
 
 main {
     flex: 1;
@@ -62,7 +60,7 @@ main {
 <a class="nav-link text-white" href="schedule.html">SCHEDULE</a>
 </li>
 <li class="nav-item">
-<a class="nav-link text-white" href="help.html">HELP</a>
+<a class="nav-link text-white" href="contact.html">HELP</a>
 </li>
 </ul>
 
@@ -76,6 +74,8 @@ main {
 </div>
 </nav>
 
+<main>
+
     <main>
 <div class="container mt-5">
 <div class="form-wrapper">
@@ -86,22 +86,38 @@ main {
 <div class="col-md-6 mb-3">
 <label class="fw-bold">Pickup Station</label>
 <select id="pickup" class="form-select">
-<option value="0">OB Montessori Las Pinas</option>
-<option value="1">Southville International Schools & Colleges</option>
-<option value="2">Montessori De Manila</option>
-<option value="3">Perpetual</option>
-<option value="4">Elizabeth Seton School</option>
+<option value="0">North Avenue</option>
+<option value="1">Quezon Avenue</option>
+<option value="2">GMA Kamuning</option>
+<option value="3">Araneta-Cubao</option>
+<option value="4">Santolan-Annapolis</option>
+<option value="5">Ortigas</option>
+<option value="6"> Shaw Blvd.</option>
+<option value="7"> Boni Avenue</option>
+<option value="8"> Guadalupe</option>
+<option value="9"> Buendia</option>
+<option value="10">Ayala</option>
+<option value="11"> Magallanes</option>
+<option value="12"> Taft Avenue</option>
 </select>
 </div>
 
 <div class="col-md-6 mb-3">
 <label class="fw-bold">Drop-off Station</label>
 <select id="dropoff" class="form-select">
-<option value="0">OB Montessori Las Pinas</option>
-<option value="1">Southville International Schools & Colleges</option>
-<option value="2">Montessori De Manila</option>
-<option value="3">Perpetual</option>
-<option value="4"> Elizabeth Seton School</option>
+<option value="0">North Avenue</option>
+<option value="1">Quezon Avenue</option>
+<option value="2">GMA Kamuning</option>
+<option value="3">Araneta-Cubao</option>
+<option value="4">Santolan-Annapolis</option>
+<option value="5">Ortigas</option>
+<option value="6"> Shaw Blvd.</option>
+<option value="7"> Boni Avenue</option>
+<option value="8"> Guadalupe</option>
+<option value="9"> Buendia</option>
+<option value="10">Ayala</option>
+<option value="11"> Magallanes</option>
+<option value="12"> Taft Avenue</option>
 </select>
 </div>
 </div>
@@ -135,25 +151,38 @@ Calculate Distance
 
 <script>
 const baseFare = 50;
-const perKM = 15;
+const perKMrate = 15;
 const baseKM = 2;
 
-document.getElementById("calculateBtn").onclick = function () {
+function calculateFare() {
 
-    let p = +document.getElementById("pickup").value;
-    let d = +document.getElementById("dropoff").value;
-    let disc = document.getElementById("discountType").value;
+    let pickup = parseInt(document.getElementById("pickup").value);
+    let dropoff = parseInt(document.getElementById("dropoff").value);
+    let discount = document.getElementById("discountType").value;
 
-    let dist = Math.abs(d - p);
+    let distance = Math.abs(dropoff - pickup);
 
-    let fare = baseFare + Math.max(0, dist - baseKM) * perKM;
+    if (distance === 0) {
+        document.getElementById("fareResult").innerHTML =
+        "Please Select Different Locations";
+        return;
+    }
 
-    fare *= 1 - 0.20 * (disc === "discounted");
+    let fare;
+
+    if (distance <= baseKM) {
+        fare = baseFare;
+    } else {
+        fare = baseFare + ((distance - baseKM) * perKMrate);
+    }
+
+    if (discount === "discounted") {
+        fare = fare * 0.80;
+    }
 
     document.getElementById("fareResult").innerHTML =
-        "Distance: " + dist +
-        " km <br>Total Fare: ₱" + fare.toFixed(2);
-};
+        "Distance: " + distance + " km <br>Total Fare: ₱" + fare.toFixed(2);
+}
 </script>
 
 
