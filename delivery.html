@@ -154,18 +154,20 @@ const baseFare = 50;
 const perKMrate = 15;
 const baseKM = 2;
 
+
 const stationKM = [
-    0.0,  
+    0.0,   
     1.2,   
-    2.2,   
+    2.2,  
     4.1,   
     5.6,   
     7.9,   
     8.7,   
     9.5,   
-    10.3,  
-    11.1,  
-    12.0, 
+    10.3,
+    11.1, 
+    12.0,  
+    13.5,  
     16.9   
 ];
 
@@ -175,17 +177,18 @@ function calculateFare() {
     let dropoff = +document.getElementById("dropoff").value;
     let discount = document.getElementById("discountType").value;
 
+    
     let distance = Math.abs(stationKM[dropoff] - stationKM[pickup]);
+
 
     let extraKM = Math.max(0, distance - baseKM);
 
     let fare = baseFare + (extraKM * perKMrate);
 
 
-    let discountMultiplier = 1 - (discount === "discounted") * 0.20;
+    fare = fare * (1 - (discount === "discounted") * 0.20);
 
-    fare = fare * discountMultiplier;
-    
+  
     let message =
         (distance === 0) * "Please Select Different Locations" +
         (distance !== 0) *
@@ -195,8 +198,7 @@ function calculateFare() {
     document.getElementById("fareResult").innerHTML = message;
 }
 </script>
-}
-</script>
+
 
 
 </html>
